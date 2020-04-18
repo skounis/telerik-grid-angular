@@ -1,0 +1,84 @@
+<kendo-grid [kendoGridBinding]="gridView" kendoGridSelectBy="id" [selectedKeys]="mySelection" [pageSize]="20"
+	[pageable]="true" [sortable]="true" [groupable]="true" [reorderable]="true" [resizable]="true" [height]="800"
+	[columnMenu]="{ filter: true }">
+	<ng-template kendoGridToolbarTemplate>
+		<input placeholder="Search in all columns..." kendoTextBox (input)="onFilter($event.target.value)"/>
+		<button kendoGridExcelCommand type="button" icon="file-excel" style="float:right;">Export to Excel</button>
+		<button kendoGridPDFCommand icon="file-pdf" style="float:right;">Export to PDF</button>
+	</ng-template>
+	<kendo-grid-checkbox-column [width]="45" [headerClass]="{'text-center': true}" [class]="{'text-center': true}"
+		[resizable]="false" [columnMenu]="false" showSelectAll="true"></kendo-grid-checkbox-column>
+	<kendo-grid-column-group title="Employee" [columnMenu]="false">
+		<kendo-grid-column field="full_name" title="Contact Name" [width]="220">
+			<ng-template kendoGridCellTemplate let-dataItem>
+				<div class="customer-photo" [ngStyle]="{'background-image' : photoURL(dataItem)}"></div>
+				<div class="customer-name">{{ dataItem.full_name }}</div>
+			</ng-template>
+		</kendo-grid-column>
+		<kendo-grid-column field="job_title" title="Job Title" [width]="220">
+		</kendo-grid-column>
+		<kendo-grid-column field="country" title="Country" [width]="100" [class]="{'text-center': true}"
+			[resizable]="false">
+			<ng-template kendoGridCellTemplate let-dataItem>
+				<img class="flag" [src]="flagURL(dataItem)" width="30">
+                    </ng-template>
+		</kendo-grid-column>
+		<kendo-grid-column field="is_online" title="Status" [width]="100" [class]="{'text-center': true}"
+			[resizable]="false" filter="boolean">
+			<ng-template kendoGridCellTemplate let-dataItem>
+				<span *ngIf="dataItem.is_online === true" class="badge badge-success">Online</span>
+				<span *ngIf="dataItem.is_online === false" class="badge badge-danger">Offline</span>
+			</ng-template>
+		</kendo-grid-column>
+	</kendo-grid-column-group>
+	<kendo-grid-column-group title="Performance" [columnMenu]="false">
+		<kendo-grid-column field="rating" title="Rating" [width]="110" [resizable]="false" filter="numeric">
+			<ng-template kendoGridCellTemplate let-dataItem>
+				<kendo-rating [value]="dataItem.rating" [max]="5"></kendo-rating>
+			</ng-template>
+		</kendo-grid-column>
+		<kendo-grid-column field="target" title="Engagement" [width]="230" [resizable]="false" filter="numeric">
+			<ng-template kendoGridCellTemplate let-dataItem>
+				<kendo-sparkline type="bar" [data]="dataItem.target" [tooltip]="{visible: false}" [transitions]="true"
+					[seriesDefaults]="{labels: {background: 'none', visible: true, format: '{0}%'}}">
+					<kendo-chart-area opacity="0" [width]="200"></kendo-chart-area>
+					<kendo-chart-value-axis>
+						<kendo-chart-value-axis-item [min]="0" [max]="130">
+						</kendo-chart-value-axis-item>
+					</kendo-chart-value-axis>
+				</kendo-sparkline>
+			</ng-template>
+		</kendo-grid-column>
+		<kendo-grid-column field="budget" title="Budget" [width]="100" filter="numeric">
+			<ng-template kendoGridCellTemplate let-dataItem>
+				<span [ngClass]="{'red text-bold': dataItem.budget < 0}">{{ dataItem.budget | currency }}</span>
+			</ng-template>
+		</kendo-grid-column>
+	</kendo-grid-column-group>
+	<kendo-grid-column-group title="Contacts" [columnMenu]="false">
+		<kendo-grid-column field="phone" title="Phone" [width]="130">
+		</kendo-grid-column>
+		<kendo-grid-column field="address" title="Address" [width]="200">
+		</kendo-grid-column>
+	</kendo-grid-column-group>
+
+	<kendo-grid-pdf fileName="Employees.pdf" [repeatHeaders]="true"></kendo-grid-pdf>
+	<kendo-grid-excel fileName="Employees.xlsx"></kendo-grid-excel>
+
+  <ng-template kendoGridDetailTemplate let-dataItem>
+    <section *ngIf="dataItem">
+      <p><strong>ID:</strong> {{dataItem.id}}</p>
+      <p><strong>Contact Name:</strong> {{dataItem.full_name}}</p>
+      <p><strong>Job Title:</strong> {{dataItem.job_title}}</p>
+      <p><strong>Country:</strong> {{dataItem.country}}</p>
+      <p><strong>Is Online:</strong> {{dataItem.is_online}}</p>
+      <p><strong>Rating:</strong> {{dataItem.rating}}</p>
+      <p><strong>Target:</strong> {{dataItem.target}}</p>
+      <p><strong>Budget:</strong> {{dataItem.budget}}</p>
+      <p><strong>Phone:</strong> {{dataItem.phone}}</p>
+      <p><strong>Address:</strong> {{dataItem.address}}</p>
+      <p>{{dataItem.img_id}}</p>
+      <p><strong>Gender:</strong> {{dataItem.gender}}</p>
+    </section>
+  </ng-template>
+</kendo-grid>
