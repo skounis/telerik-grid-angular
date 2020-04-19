@@ -6,9 +6,25 @@ import { DataBindingDirective } from "@progress/kendo-angular-grid";
 import { process } from "@progress/kendo-data-query";
 import { NotificationService } from "@progress/kendo-angular-notification";
 import { employees } from "./employees";
+import { countries } from "./countries";
 import { Employee } from "./model";
 import { images } from "./images";
 import { EditService } from "./edit.service";
+
+const createFormGroup = dataItem =>
+  new FormGroup({
+    id: new FormControl(dataItem.id),
+    full_name: new FormControl(dataItem.full_name, Validators.required),
+    job_title: new FormControl(dataItem.job_title),
+    country: new FormControl(dataItem.country),
+    is_online: new FormControl(dataItem.is_online),
+    rating: new FormControl(dataItem.rating),
+    target: new FormControl(dataItem.target),
+    budget: new FormControl(dataItem.budget),
+    phone: new FormControl(dataItem.phone),
+    address: new FormControl(dataItem.address),
+    gender: new FormControl(dataItem.gender)
+  });
 
 @Component({
   selector: "my-app",
@@ -19,8 +35,11 @@ export class AppComponent implements OnInit {
   @ViewChild(DataBindingDirective) dataBinding: DataBindingDirective;
   public groups: GroupDescriptor[] = [{ field: "job_title" }];
 
+  public countries: any[] = countries;
   public gridData: any[] = employees;
   public gridView: any[];
+
+  public formGroup: FormGroup;
 
   public mySelection: string[] = [];
 
@@ -70,6 +89,16 @@ export class AppComponent implements OnInit {
     this.dataBinding.skip = 0;
   }
 
+  public onCountryChange(e, data) {
+    console.log(e, data);
+    this.formGroup.controls.country.setValue(e);
+  }
+
+  public onRatingChange(e, data) {
+    console.log(e, data);
+    this.formGroup.controls.country.setValue(e);
+  }
+
   private photoURL(dataItem: any): string {
     const code: string = dataItem.img_id + dataItem.gender;
     const image: any = images;
@@ -86,41 +115,28 @@ export class AppComponent implements OnInit {
 
   protected editHandler({ sender, rowIndex, dataItem }) {
     // define all editable fields validators and default values
-    const group = new FormGroup({
-      id: new FormControl(dataItem.id),
-      full_name: new FormControl(dataItem.full_name, Validators.required),
-      job_title: new FormControl(dataItem.job_title),
-      country: new FormControl(dataItem.country),
-      is_online: new FormControl(dataItem.is_online),
-      rating: new FormControl(dataItem.rating),
-      target: new FormControl(dataItem.target),
-      budget: new FormControl(dataItem.budget),
-      phone: new FormControl(dataItem.phone),
-      address: new FormControl(dataItem.address),
-      gender: new FormControl(dataItem.gender)
-    });
+    this.formGroup = createFormGroup(dataItem);
     // put the row in edit mode, with the `FormGroup` build above
-    sender.editRow(rowIndex, group);
+    sender.editRow(rowIndex, this.formGroup);
   }
 
   protected addHandler({ sender }) {
     // define all editable fields validators and default values
-    const group = new FormGroup({
-      id: new FormControl(),
-      full_name: new FormControl("", Validators.required),
-      job_title: new FormControl(""),
-      country: new FormControl("US"),
-      is_online: new FormControl(false),
-      rating: new FormControl(0),
-      target: new FormControl(""),
-      budget: new FormControl(0),
-      phone: new FormControl(""),
-      address: new FormControl(""),
-      gender: new FormControl("")
-    });
-
+    this.formGroup = createFormGroup({
+      id: null,
+      full_name: '',
+      job_title: '',
+      country: 'US',
+      is_online: false,
+      rating: 0,
+      target: '',
+      budget: 0,
+      phone: '',
+      address: '',
+      gender: ''
+      });
     // show the new row editor, with the `FormGroup` build above
-    sender.addRow(group);
+    sender.addRow(this.formGroup);
   }
 
   protected cancelHandler({ sender, rowIndex }) {
@@ -147,6 +163,6 @@ export class AppComponent implements OnInit {
   }
 
   protected hide(column) {
-    return !!this.groups.filter(e =>  e.field &&  e.field === column).length
+    return !!this.groups.filter(e => e.field && e.field === column).length;
   }
 }
