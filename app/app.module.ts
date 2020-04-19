@@ -3,6 +3,8 @@ import { BrowserModule } from "@angular/platform-browser";
 import { BrowserAnimationsModule } from "@angular/platform-browser/animations";
 import { HttpClientModule } from "@angular/common/http";
 import { NotificationModule } from '@progress/kendo-angular-notification';
+import { LicencesDetailsComponent } from './licences-details.component';
+import { LayoutModule } from '@progress/kendo-angular-layout';
 
 import {
   GridModule,
@@ -28,9 +30,10 @@ import "hammerjs";
     InputsModule,
     PDFModule,
     ExcelModule,
-    NotificationModule
+    NotificationModule,
+    LayoutModule
   ],
-  declarations: [AppComponent, RatingComponent],
+  declarations: [AppComponent, RatingComponent, LicencesDetailsComponent],
   bootstrap: [AppComponent],
   providers: [EditService]
 })
