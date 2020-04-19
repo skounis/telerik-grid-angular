@@ -97,18 +97,29 @@
 
 	<ng-template kendoGridDetailTemplate let-dataItem>
 		<section *ngIf="dataItem">
-			<p><strong>ID:</strong> {{dataItem.id}}</p>
-			<p><strong>Contact Name:</strong> {{dataItem.full_name}}</p>
-			<p><strong>Job Title:</strong> {{dataItem.job_title}}</p>
-			<p><strong>Country:</strong> {{dataItem.country}}</p>
-			<p><strong>Is Online:</strong> {{dataItem.is_online}}</p>
-			<p><strong>Rating:</strong> {{dataItem.rating}}</p>
-			<p><strong>Target:</strong> {{dataItem.target}}</p>
-			<p><strong>Budget:</strong> {{dataItem.budget}}</p>
-			<p><strong>Phone:</strong> {{dataItem.phone}}</p>
-			<p><strong>Address:</strong> {{dataItem.address}}</p>
-			<p>{{dataItem.img_id}}</p>
-			<p><strong>Gender:</strong> {{dataItem.gender}}</p>
+			<kendo-splitter>
+				<kendo-splitter-pane [collapsible]="true" size="15%">
+					<div class="pane-content" style="padding: 15px;">
+						<p><strong>ID:</strong> {{dataItem.id}}</p>
+						<p><strong>Contact Name:</strong> {{dataItem.full_name}}</p>
+						<p><strong>Job Title:</strong> {{dataItem.job_title}}</p>
+						<p><strong>Country:</strong> {{dataItem.country}}</p>
+						<p><strong>Is Online:</strong> {{dataItem.is_online}}</p>
+						<p><strong>Rating:</strong> {{dataItem.rating}}</p>
+						<p><strong>Target:</strong> {{dataItem.target}}</p>
+						<p><strong>Budget:</strong> {{dataItem.budget}}</p>
+						<p><strong>Phone:</strong> {{dataItem.phone}}</p>
+						<p><strong>Address:</strong> {{dataItem.address}}</p>
+						<p>{{dataItem.img_id}}</p>
+						<p><strong>Gender:</strong> {{dataItem.gender}}</p>
+					</div>
+				</kendo-splitter-pane>
+				<kendo-splitter-pane>
+					<div class="pane-content">
+						<licences-details></licences-details>
+					</div>
+				</kendo-splitter-pane>
+			</kendo-splitter>
 		</section>
 	</ng-template>
 </kendo-grid>
