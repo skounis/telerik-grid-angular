@@ -17,12 +17,17 @@ import { EditService } from "./edit.service";
 })
 export class AppComponent implements OnInit {
   @ViewChild(DataBindingDirective) dataBinding: DataBindingDirective;
+  public groups: GroupDescriptor[] = [{ field: "job_title" }];
+
   public gridData: any[] = employees;
   public gridView: any[];
 
   public mySelection: string[] = [];
 
-  constructor(protected editService: EditService, private notificationService: NotificationService) {}
+  constructor(
+    protected editService: EditService,
+    private notificationService: NotificationService
+  ) {}
 
   public ngOnInit(): void {
     this.gridView = this.gridData;
@@ -135,9 +140,17 @@ export class AppComponent implements OnInit {
     sender.closeRow(rowIndex);
   }
 
-  protected removeHandler({dataItem}) {
+  protected removeHandler({ dataItem }) {
     // remove the current dataItem from the current data source,
     // `editService` in this example
     this.editService.remove(dataItem);
-}
+  }
+
+  protected hide(column) {
+    let items = this.groups.filter(e => {
+      return  e.field &&  e.field === column;
+    })
+
+    return !!items.length
+  }
 }
