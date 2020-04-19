@@ -1,6 +1,9 @@
 <kendo-grid [kendoGridBinding]="gridView" kendoGridSelectBy="id" [selectedKeys]="mySelection" [pageSize]="20"
 	[pageable]="true" [sortable]="true" [groupable]="true" [reorderable]="true" [resizable]="true" [height]="800"
-	[columnMenu]="{ filter: true }">
+	[columnMenu]="{ filter: true }"
+  (edit)="editHandler($event)" (cancel)="cancelHandler($event)"
+  (save)="saveHandler($event)" (remove)="removeHandler($event)"
+  (add)="addHandler($event)">
 	<ng-template kendoGridToolbarTemplate>
 		<input placeholder="Search in all columns..." kendoTextBox (input)="onFilter($event.target.value)"/>
     <button kendoGridAddCommand style="float:right;">Add new</button>
@@ -65,7 +68,7 @@
   <!-- ======== -->
   <!-- Commands -->
   <!-- ======== -->
-  <kendo-grid-command-column title="command" width="220">
+  <kendo-grid-command-column title="Commands" width="220">
    <ng-template kendoGridCellTemplate let-isNew="isNew">
        <!-- edit command directive, will be visible when not in edit mode -->
        <button kendoGridEditCommand [primary]="true">Edit</button>
