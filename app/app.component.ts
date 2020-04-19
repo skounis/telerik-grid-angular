@@ -147,10 +147,6 @@ export class AppComponent implements OnInit {
   }
 
   protected hide(column) {
-    let items = this.groups.filter(e => {
-      return  e.field &&  e.field === column;
-    })
-
-    return !!items.length
+    return !!this.groups.filter(e =>  e.field &&  e.field === column).length
   }
 }
