@@ -1,5 +1,5 @@
 <kendo-grid [kendoGridBinding]="gridView" kendoGridSelectBy="id" [selectedKeys]="mySelection" [pageSize]="20"
-	[pageable]="true" [sortable]="true" [groupable]="true" [reorderable]="true" [resizable]="true" [height]="800"
+	[pageable]="true" [sortable]="true" [groupable]="true" [(group)]="groups" [reorderable]="true" [resizable]="true" [height]="800"
 	[columnMenu]="{ filter: true }"
   (edit)="editHandler($event)" (cancel)="cancelHandler($event)"
   (save)="saveHandler($event)" (remove)="removeHandler($event)"
@@ -19,9 +19,9 @@
 				<div class="customer-name">{{ dataItem.full_name }}</div>
 			</ng-template>
 		</kendo-grid-column>
-		<kendo-grid-column field="job_title" title="Job Title" [width]="220">
+		<kendo-grid-column field="job_title" title="Job Title" [width]="220" [hidden]="hide('job_title')">
 		</kendo-grid-column>
-		<kendo-grid-column field="country" title="Country" [width]="100" [class]="{'text-center': true}"
+		<kendo-grid-column field="country" title="Country" [width]="100" [hidden]="hide('country')" [class]="{'text-center': true}"
 			[resizable]="false">
 			<ng-template kendoGridCellTemplate let-dataItem>
 				<img class="flag" [src]="flagURL(dataItem)" width="30">
