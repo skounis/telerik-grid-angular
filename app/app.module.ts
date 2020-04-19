@@ -2,9 +2,9 @@ import { NgModule } from "@angular/core";
 import { BrowserModule } from "@angular/platform-browser";
 import { BrowserAnimationsModule } from "@angular/platform-browser/animations";
 import { HttpClientModule } from "@angular/common/http";
-import { ReactiveFormsModule } from '@angular/forms';
-import { NotificationModule } from '@progress/kendo-angular-notification';
-import { DropDownListModule } from '@progress/kendo-angular-dropdowns';
+import { ReactiveFormsModule } from "@angular/forms";
+import { NotificationModule } from "@progress/kendo-angular-notification";
+import { DropDownListModule } from "@progress/kendo-angular-dropdowns";
 
 import {
   GridModule,

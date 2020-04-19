@@ -124,17 +124,17 @@ export class AppComponent implements OnInit {
     // define all editable fields validators and default values
     this.formGroup = createFormGroup({
       id: null,
-      full_name: '',
-      job_title: '',
-      country: 'US',
+      full_name: "",
+      job_title: "",
+      country: "US",
       is_online: false,
       rating: 0,
-      target: '',
+      target: "",
       budget: 0,
-      phone: '',
-      address: '',
-      gender: ''
-      });
+      phone: "",
+      address: "",
+      gender: ""
+    });
     // show the new row editor, with the `FormGroup` build above
     sender.addRow(this.formGroup);
   }

@@ -25,13 +25,9 @@
 				<img class="flag" [src]="flagURL(dataItem)" width="30">
       </ng-template>
 
-				<ng-template kendoGridEditTemplate 
-          let-dataItem="dataItem" 
-          let-formGroup="formGroup">
-					<kendo-dropdownlist 
-            [data]="countries" 
-            (valueChange)="onCountryChange($event, dataItem)"
-            [formControl]="formGroup.get('country')">
+				<ng-template kendoGridEditTemplate let-dataItem="dataItem" let-formGroup="formGroup">
+					<kendo-dropdownlist [data]="countries" (valueChange)="onCountryChange($event, dataItem)"
+						[formControl]="formGroup.get('country')">
 					</kendo-dropdownlist>
 				</ng-template>
 
@@ -49,17 +45,14 @@
 			<ng-template kendoGridCellTemplate let-dataItem>
 				<kendo-rating [value]="dataItem.rating" [max]="5"></kendo-rating>
 			</ng-template>
-      <ng-template kendoGridEditTemplate 
-        let-dataItem="dataItem" 
-        let-formGroup="formGroup">
-        <kendo-dropdownlist 
-          [data]="[1, 2, 3, 4, 5]" 
-          (valueChange)="onRatingChange($event, dataItem)"
-          [formControl]="formGroup.get('rating')">
-        </kendo-dropdownlist>
-      </ng-template>
+			<ng-template kendoGridEditTemplate let-dataItem="dataItem" let-formGroup="formGroup">
+				<kendo-dropdownlist [data]="[1, 2, 3, 4, 5]" (valueChange)="onRatingChange($event, dataItem)"
+					[formControl]="formGroup.get('rating')">
+				</kendo-dropdownlist>
+			</ng-template>
 		</kendo-grid-column>
-		<kendo-grid-column field="target" title="Engagement" [width]="230" [resizable]="false" filter="numeric" editor="numeric">
+		<kendo-grid-column field="target" title="Engagement" [width]="230" [resizable]="false" filter="numeric"
+			editor="numeric">
 			<ng-template kendoGridCellTemplate let-dataItem>
 				<kendo-sparkline type="bar" [data]="dataItem.target" [tooltip]="{visible: false}" [transitions]="true"
 					[seriesDefaults]="{labels: {background: 'none', visible: true, format: '{0}%'}}">
