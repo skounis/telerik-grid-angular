@@ -3,6 +3,7 @@
 	[columnMenu]="{ filter: true }">
 	<ng-template kendoGridToolbarTemplate>
 		<input placeholder="Search in all columns..." kendoTextBox (input)="onFilter($event.target.value)"/>
+    <button kendoGridAddCommand style="float:right;">Add new</button>
 		<button kendoGridExcelCommand type="button" icon="file-excel" style="float:right;">Export to Excel</button>
 		<button kendoGridPDFCommand icon="file-pdf" style="float:right;">Export to PDF</button>
 	</ng-template>
@@ -24,7 +25,7 @@
                     </ng-template>
 		</kendo-grid-column>
 		<kendo-grid-column field="is_online" title="Status" [width]="100" [class]="{'text-center': true}"
-			[resizable]="false" filter="boolean">
+			[resizable]="false" filter="boolean" editor="boolean">
 			<ng-template kendoGridCellTemplate let-dataItem>
 				<span *ngIf="dataItem.is_online === true" class="badge badge-success">Online</span>
 				<span *ngIf="dataItem.is_online === false" class="badge badge-danger">Offline</span>
@@ -49,7 +50,7 @@
 				</kendo-sparkline>
 			</ng-template>
 		</kendo-grid-column>
-		<kendo-grid-column field="budget" title="Budget" [width]="100" filter="numeric">
+		<kendo-grid-column field="budget" title="Budget" [width]="100" filter="numeric" editor="numeric">
 			<ng-template kendoGridCellTemplate let-dataItem>
 				<span [ngClass]="{'red text-bold': dataItem.budget < 0}">{{ dataItem.budget | currency }}</span>
 			</ng-template>
