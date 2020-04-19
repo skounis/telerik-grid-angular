@@ -62,6 +62,21 @@
 		<kendo-grid-column field="address" title="Address" [width]="200">
 		</kendo-grid-column>
 	</kendo-grid-column-group>
+  <!-- ======== -->
+  <!-- Commands -->
+  <!-- ======== -->
+  <kendo-grid-command-column title="command" width="220">
+   <ng-template kendoGridCellTemplate let-isNew="isNew">
+       <!-- edit command directive, will be visible when not in edit mode -->
+       <button kendoGridEditCommand [primary]="true">Edit</button>
+       <!-- remove command directive, will be visible when not in edit mode -->
+       <button kendoGridRemoveCommand>Remove</button>
+       <!-- save command directive, will be visible when in edit mode -->
+       <button kendoGridSaveCommand>{{ isNew ? 'Add' : 'Update' }}</button>
+       <!-- cancel command directive, will be visible when in edit mode -->
+       <button kendoGridCancelCommand>{{ isNew ? 'Discard changes' : 'Cancel' }}</button>
+   </ng-template>
+</kendo-grid-command-column>
 
 	<kendo-grid-pdf fileName="Employees.pdf" [repeatHeaders]="true"></kendo-grid-pdf>
 	<kendo-grid-excel fileName="Employees.xlsx"></kendo-grid-excel>
